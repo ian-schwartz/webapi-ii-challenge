@@ -70,5 +70,21 @@ router.post('/:id/comments', (req, res) => {
     }
 });
 
+// PUT to /api/posts/:id
+
+
+// DELETE to /api/posts/:id
+router.delete('/:id', (req, res) => {
+    db.remove(req.params.id)
+      .then(post => {
+          if (post) {
+              res.status(200).json({ message: `Deleted post with id ${req.params.id}`})
+          } else {
+              res.status(404).json({ message: "The post with the specified ID does not exist." });
+          }
+      })
+      .catch(() => res.status(500).json({ error: "The post could not be removed" }));
+});
+
 
 module.exports = router;
